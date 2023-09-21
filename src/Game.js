@@ -1,9 +1,10 @@
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 export default class Game {
-  constructor(width, height) {
+  constructor(width, height, canvasPosition) {
     this.width = width
     this.height = height
+    this.canvasPosition = canvasPosition
     this.input = new InputHandler(this)
     this.keys = []
     this.enemies = []
