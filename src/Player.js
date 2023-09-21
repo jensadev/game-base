@@ -6,11 +6,20 @@ export default class Player {
     this.x = 50
     this.y = 100
 
-    this.speedX = 1
+    this.speedX = 0
     this.speedY = 0
+    this.maxSpeed = 10
   }
 
   update(deltaTime) {
+    if (this.game.keys.includes('ArrowLeft')) {
+      this.speedX = -this.maxSpeed
+    } else if (this.game.keys.includes('ArrowRight')) {
+      this.speedX = this.maxSpeed
+    } else {
+      this.speedX = 0
+    }
+
     this.x += this.speedX
   }
 
