@@ -8,6 +8,8 @@ export default class Player {
     this.x = 50
     this.y = 100
 
+    this.frameX = 0
+
     this.projectiles = []
 
     this.speedX = 0
@@ -51,6 +53,13 @@ export default class Player {
     this.projectiles.forEach((projectile) => {
       projectile.draw(context)
     })
+
+    if (this.game.debug) {
+      context.strokeRect(this.x, this.y, this.width, this.height)
+      context.fillStyle = 'black'
+      context.font = '12px Arial'
+      context.fillText(this.frameX, this.x, this.y - 5)
+    }
   }
 
   shoot() {

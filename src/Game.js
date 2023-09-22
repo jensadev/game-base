@@ -1,15 +1,18 @@
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
+import UserInterface from './UserInterface.js'
 export default class Game {
   constructor(width, height) {
     this.width = width
     this.height = height
     this.input = new InputHandler(this)
+    this.ui = new UserInterface(this)
     this.keys = []
     this.enemies = []
     this.gameOver = false
     this.gravity = 1
     this.debug = false
+    this.gameTime = 0
 
     this.player = new Player(this)
   }
@@ -22,6 +25,7 @@ export default class Game {
   }
 
   draw(context) {
+    this.ui.draw(context)
     this.player.draw(context)
   }
 }
