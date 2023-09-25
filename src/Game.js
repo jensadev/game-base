@@ -34,7 +34,18 @@ export default class Game {
       this.enemyTimer += deltaTime
     }
 
-    this.enemies.forEach((enemy) => enemy.update(deltaTime))
+    this.enemies.forEach((enemy) => {
+      enemy.update(deltaTime)
+      if (this.checkCollision(this.player, enemy)) {
+        enemy.markedForDeletion = true
+      }
+      this.player.projectiles.forEach((projectile) => {
+        if (this.checkCollision(projectile, enemy)) {
+          enemy.markedForDeletion = true
+          projectile.markedForDeletion = true
+        }
+      })
+    })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
   }
 
@@ -46,5 +57,14 @@ export default class Game {
 
   addEnemy() {
     this.enemies.push(new Slime(this))
+  }
+
+  checkCollision(object1, object2) {
+    return (
+      object1.x < object2.x + object2.width &&
+      object1.x + object1.width > object2.x &&
+      object1.y < object2.y + object2.height &&
+      object1.height + object1.y > object2.y
+    )
   }
 }
