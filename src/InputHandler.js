@@ -2,7 +2,7 @@ export default class InputHandler {
   constructor(game) {
     this.game = game
     window.addEventListener('keydown', (event) => {
-      console.log(event.key)
+      // console.log(event.key)
       if (
         (event.key === 'ArrowUp' ||
           event.key === 'ArrowDown' ||

@@ -14,7 +14,9 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 10
+    this.maxSpeed = 6
+    this.jumpSpeed = 14
+    this.grounded = false
   }
 
   update(deltaTime) {
@@ -26,12 +28,15 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp')) {
-      this.speedY = -this.maxSpeed
-    } else if (this.game.keys.includes('ArrowDown')) {
-      this.speedY = this.maxSpeed
-    } else {
+    if (this.game.keys.includes('ArrowUp') && this.grounded) {
+      this.speedY = -this.jumpSpeed
+      this.grounded = false
+    }
+
+    if (this.grounded) {
       this.speedY = 0
+    } else {
+      this.speedY += this.game.gravity
     }
 
     this.y += this.speedY
@@ -59,6 +64,7 @@ export default class Player {
       context.fillStyle = 'black'
       context.font = '12px Arial'
       context.fillText(this.frameX, this.x, this.y - 5)
+      context.fillText(this.grounded, this.x + 20, this.y - 5)
     }
   }
 
