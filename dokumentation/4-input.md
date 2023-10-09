@@ -62,6 +62,24 @@ export default class InputHandler {
 
 - Här kontrollerar vi om den upplåtna tangenten (key up) finns i listan `this.game.keys`. Om tangenten finns i listan, tar vi bort den genom att använda array-metoden`splice`.
 
+### Använda InputHandler i spelet
+
+Nu när vi har skapat klassen `InputHandler` behöver vi använda den i spelet. Detta gör vi i `Game.js`. Vi behöver först importera klassen och sedan skapa en ny instans av den.
+
+Utöver det så behöver vi skapa en array som kan hålla alla aktiva tangenttryckningar. Detta gör vi i konstruktorn för `Game.js`.
+
+```javascript
+import InputHandler from './InputHandler.js'
+
+export default class Game {
+  constructor(...) {
+    this.input = new InputHandler(this)
+    this.keys = []
+  }
+}
+```
+
+Med de uppdateringarna av `Game` klassen på plats så kan vi nu använda `this.keys` i `Player.js` för att kontrollera om spelaren ska röra sig.
 
 ### Mitt spel kräver ett annat rörelsemönster
 
