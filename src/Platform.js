@@ -1,16 +1,17 @@
 export default class Platform {
-  constructor(game, x, y, width, height) {
+  constructor(game, x, y, width, height, color) {
     this.game = game
     this.width = width
     this.height = height
     this.x = x
     this.y = y
+    this.color = color
   }
 
   update() {}
 
   draw(context) {
-    context.fillStyle = '#795548'
+    context.fillStyle = this.color
     context.fillRect(this.x, this.y, this.width, this.height)
 
     if (this.game.debug) {
