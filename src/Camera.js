@@ -5,8 +5,6 @@ export default class Camera {
     this.y = y
     this.width = this.game.width
     this.height = this.game.height
-    this.worldWidth = 854
-    this.worldHeight = 500
     this.minX = minX
     this.minY = minY
     this.lerpFactor = lerpFactor
