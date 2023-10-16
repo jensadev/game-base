@@ -68,6 +68,10 @@ export default class Game {
       this.enemyTimer += deltaTime
     }
 
+    if (this.checkCollision(this.player, this.level.goal)) {
+      this.gameOver = true
+    }
+
     this.enemies.forEach((enemy) => {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
@@ -88,13 +92,8 @@ export default class Game {
     this.ui.draw(context)
     this.camera.apply(context)
     this.level.draw(context)
-    // this.platforms.forEach((platform) =>
-    //   platform.draw(context, this.camera.x, this.camera.y)
-    // )
-    this.player.draw(context, this.camera.x, this.camera.y)
-    this.enemies.forEach((enemy) =>
-      enemy.draw(context, this.camera.x, this.camera.y)
-    )
+    this.player.draw(context)
+    this.enemies.forEach((enemy) => enemy.draw(context))
     this.camera.reset(context)
   }
 

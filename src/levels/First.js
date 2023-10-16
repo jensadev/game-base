@@ -1,3 +1,4 @@
+import Item from '../Item'
 import Map from '../Map'
 import Platform from '../Platform'
 
@@ -11,5 +12,7 @@ export default class First extends Map {
     this.addPlatform(new Platform(game, 540, 280, 200, 20))
     this.addPlatform(new Platform(game, 200, 280, 200, 20))
     this.addPlatform(new Platform(game, 300, 160, 200, 20))
+
+    this.addGoal(new Item(game, 900, 200))
   }
 }
