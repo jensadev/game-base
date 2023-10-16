@@ -17,6 +17,23 @@ export default class Layer {
   }
 
   draw(context) {
+    if (this.game.debug) {
+      // draw box around layer
+      context.strokeStyle = 'black'
+      context.strokeRect(
+        this.x - 1,
+        this.y - 1,
+        this.width - 1,
+        this.height - 1
+      )
+      // write layer name
+      context.font = '12px Arial'
+      context.fillText(
+        `Layer: ${this.image.src.split('/').pop()}`,
+        this.x + 400,
+        this.y + 20
+      )
+    }
     context.drawImage(this.image, this.x, this.y)
     context.drawImage(this.image, this.x + this.width, this.y)
   }
