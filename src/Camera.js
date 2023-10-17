@@ -15,19 +15,14 @@ export default class Camera {
   update(player) {
     const halfWidth = this.width / 2
     const halfHeight = this.height / 2
-    const maxX = this.worldWidth
-    const maxY = this.worldHeight - this.height
-
-    console.log(maxX, this.minX)
+    const maxX = this.game.level.width
 
     // calculate the target position for the camera
     let targetX = Math.min(Math.max(player.x - halfWidth, this.minX), maxX)
-    let targetY = Math.min(Math.max(player.y - halfHeight, this.minY), maxY)
+    // let targetY = Math.min(Math.max(player.y - halfHeight, this.minY), maxY)
 
-    // if the player is grounded, lock the camera to the player's y position
-    if (player.grounded) {
-      targetY = player.y - halfHeight
-    }
+    // let targetX = player.x - halfWidth
+    let targetY = player.y - halfHeight
 
     // smoothly move the camera towards the target position using lerp
     this.x += (targetX - this.x) * this.lerpFactor

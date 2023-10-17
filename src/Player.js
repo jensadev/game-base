@@ -16,11 +16,19 @@ export default class Player {
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 6
-    this.jumpSpeed = 14
+    this.jumpSpeed = 16
+    this.jumpTimer = 0
+    this.jumpInterval = 600
     this.grounded = false
   }
 
   update(deltaTime) {
+    if (this.grounded) {
+      this.speedY = 0
+    } else {
+      this.speedY += this.game.gravity
+    }
+
     if (this.game.keys.includes('ArrowLeft')) {
       this.direction = -1
       this.speedX = -this.maxSpeed
@@ -31,15 +39,12 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp') && this.grounded) {
-      this.speedY = -this.jumpSpeed
-      this.grounded = false
+    if (this.jumpTimer <= this.jumpInterval) {
+      this.jumpTimer += deltaTime
     }
 
-    if (this.grounded) {
-      this.speedY = 0
-    } else {
-      this.speedY += this.game.gravity
+    if (this.game.keys.includes('ArrowUp')) {
+      this.jump()
     }
 
     this.y += this.speedY
@@ -77,8 +82,18 @@ export default class Player {
     }
   }
 
+  jump() {
+    if (this.jumpTimer > this.jumpInterval && this.grounded) {
+      this.speedY = -this.jumpSpeed
+      this.jumpTimer = 0
+      this.grounded = false
+    }
+  }
+
   shoot() {
-    const x = this.direction === 1 ? this.x + this.width : this.x
+    const offset = 10
+    const x =
+      this.direction === 1 ? this.x + this.width + offset : this.x - offset
     this.projectiles.push(
       new Projectile(this.game, x, this.y + this.height / 2, this.direction)
     )
