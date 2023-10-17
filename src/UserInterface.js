@@ -52,6 +52,31 @@ export default class UserInterface {
         this.game.width - 20,
         125
       )
+      context.fillText(
+        `jumpSpeed: ${this.game.player.jumpSpeed}`,
+        this.game.width - 20,
+        150
+      )
+      context.fillText(
+        `enemies: ${this.game.enemies.length}`,
+        this.game.width - 20,
+        200
+      )
+      context.fillText(
+        `projectiles: ${this.game.player.projectiles.length}`,
+        this.game.width - 20,
+        225
+      )
+      context.fillText(
+        `cameraX: ${this.game.camera.x.toFixed(2)}`,
+        this.game.width - 20,
+        250
+      )
+      context.fillText(
+        `cameraY: ${this.game.camera.y.toFixed(2)}`,
+        this.game.width - 20,
+        275
+      )
       context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
     }
 

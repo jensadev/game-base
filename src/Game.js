@@ -21,14 +21,16 @@ export default class Game {
     this.enemyInterval = 1000
 
     this.player = new Player(this)
-    this.camera = new Camera(this, this.player.x, this.player.y)
+    this.camera = new Camera(this, this.player.x, this.player.y, 0, 100)
 
     this.ground = this.height - 100
 
     this.platforms = [
-      new Platform(this, 0, this.ground, this.width, 100),
+      new Platform(this, -2000, this.ground, 2200, 200),
+      new Platform(this, 300, this.ground, 2200, 200),
       new Platform(this, this.width - 200, 280, 200, 20),
       new Platform(this, 200, 200, 300, 20),
+      new Platform(this, 400, 80, 300, 20),
     ]
   }
 
@@ -37,6 +39,7 @@ export default class Game {
       this.gameTime += deltaTime
     }
     this.player.update(deltaTime)
+
     this.camera.update(this.player)
 
     this.platforms.forEach((platform) => {
@@ -76,7 +79,9 @@ export default class Game {
   }
 
   draw(context) {
+    // console.log(this.camera)
     this.ui.draw(context)
+    this.camera.apply(context)
     this.platforms.forEach((platform) =>
       platform.draw(context, this.camera.x, this.camera.y)
     )
@@ -84,6 +89,7 @@ export default class Game {
     this.enemies.forEach((enemy) =>
       enemy.draw(context, this.camera.x, this.camera.y)
     )
+    this.camera.reset(context)
   }
 
   addEnemy() {

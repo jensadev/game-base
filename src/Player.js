@@ -12,6 +12,7 @@ export default class Player {
 
     this.projectiles = []
 
+    this.direction = 1
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 6
@@ -21,8 +22,10 @@ export default class Player {
 
   update(deltaTime) {
     if (this.game.keys.includes('ArrowLeft')) {
+      this.direction = -1
       this.speedX = -this.maxSpeed
     } else if (this.game.keys.includes('ArrowRight')) {
+      this.direction = 1
       this.speedX = this.maxSpeed
     } else {
       this.speedX = 0
@@ -65,12 +68,19 @@ export default class Player {
       context.font = '12px Arial'
       context.fillText(this.frameX, this.x, this.y - 5)
       context.fillText(this.grounded, this.x + 20, this.y - 5)
+
+      const x = this.direction === 1 ? this.x + this.width + 10 : this.x - 10
+      context.beginPath()
+      context.moveTo(this.x + this.width / 2, this.y + this.height / 2)
+      context.lineTo(x, this.y + this.height / 2)
+      context.stroke()
     }
   }
 
   shoot() {
+    const x = this.direction === 1 ? this.x + this.width : this.x
     this.projectiles.push(
-      new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
+      new Projectile(this.game, x, this.y + this.height / 2, this.direction)
     )
   }
 }
