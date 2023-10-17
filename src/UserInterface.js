@@ -48,16 +48,6 @@ export default class UserInterface {
         100
       )
       context.fillText(
-        `maxSpeed: ${this.game.player.maxSpeed}`,
-        this.game.width - 20,
-        125
-      )
-      context.fillText(
-        `jumpSpeed: ${this.game.player.jumpSpeed}`,
-        this.game.width - 20,
-        150
-      )
-      context.fillText(
         `enemies: ${this.game.enemies.length}`,
         this.game.width - 20,
         200
