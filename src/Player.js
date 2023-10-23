@@ -1,6 +1,6 @@
 import Projectile from './Projectile.js'
 import spriteImage from './assets/sprites/Idle Run (78x58).png'
-
+import Sound from './Sound.js'
 export default class Player {
   constructor(game) {
     this.game = game
@@ -34,6 +34,9 @@ export default class Player {
 
     // flip sprite direction
     this.flip = false
+
+    // sound
+    this.sound = new Sound(this.game)
   }
 
   update(deltaTime) {
@@ -130,6 +133,7 @@ export default class Player {
   }
 
   shoot() {
+    this.sound.playShootSound()
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )
