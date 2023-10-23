@@ -29,6 +29,45 @@ export default class Game {
 
     this.sound = new Sound(this)
     // this.sound.playBackgroundMusic()
+
+    this.levels = {
+      danger: {
+        y: 200,
+        color: {
+          r: 255,
+          g: 55,
+          b: 55,
+          a: 0.4,
+        },
+      },
+      warning: {
+        y: 400,
+        color: {
+          r: 200,
+          g: 100,
+          b: 100,
+          a: 0.5,
+        },
+      },
+      safe: {
+        y: 600,
+        color: {
+          r: 155,
+          g: 155,
+          b: 155,
+          a: 0.6,
+        },
+      },
+      void: {
+        y: 700,
+        color: {
+          r: 100,
+          g: 100,
+          b: 100,
+          a: 0.7,
+        },
+      },
+    }
   }
 
   update(deltaTime) {

@@ -1,17 +1,20 @@
 import Projectile from './Projectile.js'
-import spriteImage from './assets/sprites/Idle Run (78x58).png'
-import Sound from './Sound.js'
+import Particle from './Particle.js'
 export default class Player {
   constructor(game) {
     this.game = game
-    this.width = 78
-    this.height = 58
-    this.x = 50
-    this.y = 100
+    this.width = 16
+    this.height = 16
+    this.offset = 8
+    this.x = this.game.width / 2
+    this.y = this.game.height - 150
 
     this.frameX = 0
 
     this.projectiles = []
+    this.particles = []
+    this.particleTimer = 0
+    this.particleInterval = 25
 
     this.speedX = 0
     this.speedY = 0
@@ -19,48 +22,32 @@ export default class Player {
     this.jumpSpeed = 14
     this.grounded = false
 
-    // adding sprite image
-    const image = new Image()
-    image.src = spriteImage
-    this.image = image
-
-    // sprite animation
-    this.frameX = 0
-    this.frameY = 1
-    this.maxFrame = 8
-    this.fps = 20
-    this.timer = 0
-    this.interval = 1000 / this.fps
-
-    // flip sprite direction
-    this.flip = false
-
-    // sound
-    this.sound = new Sound(this.game)
+    this.beam = {
+      active: false,
+    }
+    this.color = {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 0,
+    }
   }
 
   update(deltaTime) {
-    if (this.game.keys.includes('ArrowLeft')) {
+    if (this.game.keys.includes('a')) {
       this.speedX = -this.maxSpeed
-    } else if (this.game.keys.includes('ArrowRight')) {
+    } else if (this.game.keys.includes('d')) {
       this.speedX = this.maxSpeed
     } else {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp')) {
+    if (this.game.keys.includes('w')) {
       this.speedY = -this.maxSpeed
-    } else if (this.game.keys.includes('ArrowDown')) {
+    } else if (this.game.keys.includes('s')) {
       this.speedY = this.maxSpeed
     } else {
       this.speedY = 0
-    }
-
-    // play run or idle animation
-    if (this.speedX !== 0) {
-      this.frameY = 1
-    } else {
-      this.frameY = 0
     }
 
     this.y += this.speedY
@@ -74,30 +61,67 @@ export default class Player {
       (projectile) => !projectile.markedForDeletion
     )
 
-    // flip sprite direction
-    if (this.speedX < 0) {
-      this.flip = true
-    } else if (this.speedX > 0) {
-      this.flip = false
-    }
+    this.particles.forEach((particle) => {
+      particle.update(deltaTime)
+    })
+    this.particles = this.particles.filter(
+      (particle) => !particle.markedForDeletion
+    )
 
-    // sprite animation update
-    if (this.timer > this.interval) {
-      this.frameX++
-      this.timer = 0
+    // particles and color
+
+    if (this.y < this.game.levels.danger.y) {
+      this.color = this.game.levels.danger.color
+      if (this.particleTimer > this.particleInterval) {
+        this.particles.push(
+          new Particle(
+            this.game,
+            this.x + this.width / 2,
+            this.y + this.height / 2,
+            this.game.levels.danger.color
+          )
+        )
+        this.particleTimer = 0
+      }
+    } else if (this.y < this.game.levels.warning.y) {
+      this.color = this.game.levels.warning.color
+      if (this.particleTimer > this.particleInterval) {
+        this.particles.push(
+          new Particle(
+            this.game,
+            this.x + this.width / 2,
+            this.y + this.height / 2,
+            this.game.levels.warning.color
+          )
+        )
+        this.particleTimer = 0
+      }
+    } else if (this.y < this.game.levels.safe.y) {
+      this.color = this.game.levels.safe.color
+      if (this.particleTimer > this.particleInterval) {
+        this.particles.push(
+          new Particle(
+            this.game,
+            this.x + this.width / 2,
+            this.y + this.height / 2,
+            this.game.levels.safe.color
+          )
+        )
+        this.particleTimer = 0
+      }
     } else {
-      this.timer += deltaTime
+      this.color = this.game.levels.void.color
     }
-
-    // reset frameX when it reaches maxFrame
-    if (this.frameX >= this.maxFrame) {
-      this.frameX = 0
-    }
+    this.particleTimer += deltaTime
   }
 
   draw(context) {
     this.projectiles.forEach((projectile) => {
       projectile.draw(context)
+    })
+
+    this.particles.forEach((particle) => {
+      particle.draw(context)
     })
 
     if (this.game.debug) {
@@ -108,29 +132,30 @@ export default class Player {
       context.fillText(this.grounded, this.x + 20, this.y - 5)
     }
 
-    // draw sprite image
-    if (this.flip) {
-      context.save()
-      context.scale(-1, 1)
+    if (this.beam.active) {
+      context.beginPath()
+      context.rect(this.x, this.y, this.width, this.height)
+      context.fillStyle = 'rgba(255, 55, 55, 0.5)'
+      context.fill()
     }
 
-    context.drawImage(
-      this.image,
-      this.frameX * this.width,
-      this.frameY * this.height - 14,
-      this.width,
-      this.height,
-      this.flip ? this.x * -1 - this.width : this.x,
-      this.y,
-      this.width,
-      this.height
-    )
+    context.beginPath()
+    context.rect(this.x, this.y, this.width, this.height)
+    context.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.color.a})`
+    context.fill()
 
-    context.restore()
+    context.beginPath()
+    context.rect(
+      this.x + this.offset / 2,
+      this.y + this.offset / 2,
+      this.offset,
+      this.offset
+    )
+    context.fillStyle = 'rgba(255, 255, 255, 0.5)'
+    context.fill()
   }
 
   shoot() {
-    this.sound.playShootSound()
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )
