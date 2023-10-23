@@ -1,7 +1,6 @@
-import skyImage from './assets/layers/sky_layer.png'
-import middleImage from './assets/layers/middle_layer.png'
-import groundImage from './assets/layers/ground_layer.png'
-import foregroundImage from './assets/layers/foreground_layer.png'
+import bgImage from './assets/images/bg.png'
+import skyImage from './assets/images/sky.png'
+import fgImage from './assets/images/fg.png'
 import Layer from './Layer'
 
 export default class Background {
@@ -9,22 +8,15 @@ export default class Background {
     this.game = game
     const sky = new Image()
     sky.src = skyImage
-    this.skyLayer = new Layer(this.game, sky, 1708, 500, 0.2)
-    const middle = new Image()
-    middle.src = middleImage
-    this.middleLayer = new Layer(this.game, middle, 1708, 500, 0.4)
-    const ground = new Image()
-    ground.src = groundImage
-    this.groundLayer = new Layer(this.game, ground, 1708, 500, 0.6)
-    const foreground = new Image()
-    foreground.src = foregroundImage
-    this.foregroundLayer = new Layer(this.game, foreground, 1708, 500, 0.8)
-    this.layers = [
-      this.skyLayer,
-      this.middleLayer,
-      this.groundLayer,
-      this.foregroundLayer,
-    ]
+    this.skyLayer = new Layer(this.game, sky, 480, 800, 0.2)
+    const bg = new Image()
+    bg.src = bgImage
+    this.bgLayer = new Layer(this.game, bg, 1120, 800, 0.2)
+    const fg = new Image()
+    fg.src = fgImage
+    this.fgLayer = new Layer(this.game, fg, 1120, 800, 0.4)
+
+    this.layers = [this.skyLayer, this.bgLayer, this.fgLayer]
   }
 
   update() {
