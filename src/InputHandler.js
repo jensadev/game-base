@@ -36,8 +36,10 @@ export default class InputHandler {
     })
 
     window.addEventListener('mousemove', (event) => {
-      this.mouseX = event.clientX - this.game.canvasPosition.left
-      this.mouseY = event.clientY - this.game.canvasPosition.top
+      // this.mouseX = event.clientX - this.game.canvasPosition.left
+      // this.mouseY = event.clientY - this.game.canvasPosition.top
+      this.mouseX = event.clientX - this.game.canvasOffset.left
+      this.mouseY = event.clientY - this.game.canvasOffset.top
     })
 
     window.addEventListener('mousedown', (event) => {
