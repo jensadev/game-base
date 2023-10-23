@@ -8,7 +8,7 @@ export default class Background {
     this.game = game
     const sky = new Image()
     sky.src = skyImage
-    this.skyLayer = new Layer(this.game, sky, 480, 800, 0.2)
+    this.skyLayer = new Layer(this.game, sky, 480, 800, 0)
     const bg = new Image()
     bg.src = bgImage
     this.bgLayer = new Layer(this.game, bg, 1120, 800, 0.2)

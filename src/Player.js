@@ -48,15 +48,12 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp') && this.grounded) {
-      this.speedY = -this.jumpSpeed
-      this.grounded = false
-    }
-
-    if (this.grounded) {
-      this.speedY = 0
+    if (this.game.keys.includes('ArrowUp')) {
+      this.speedY = -this.maxSpeed
+    } else if (this.game.keys.includes('ArrowDown')) {
+      this.speedY = this.maxSpeed
     } else {
-      this.speedY += this.game.gravity
+      this.speedY = 0
     }
 
     // play run or idle animation
