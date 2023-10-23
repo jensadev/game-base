@@ -10,9 +10,9 @@ export default class Layer {
   }
 
   update() {
-    // if (this.y <= -this.height) {
-    //   this.y = 0
-    // }
+    if (this.y <= -this.height) {
+      this.y = 0
+    }
     this.y -= this.game.speed * this.speedModifier
   }
 
@@ -34,7 +34,13 @@ export default class Layer {
         this.y + 20
       )
     }
-    context.drawImage(this.image, this.x, this.y)
-    context.drawImage(this.image, this.x + this.width, this.y)
+    context.save()
+    context.translate(this.game.width / 2, this.game.height / 2)
+    context.rotate(Math.PI / 2)
+    context.translate(-this.game.width / 2, -this.game.height / 2)
+
+    // stretch image over canvas size
+    context.drawImage(this.image, 0, this.y, this.game.width, this.game.height)
+    context.restore()
   }
 }

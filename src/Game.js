@@ -19,6 +19,7 @@ export default class Game {
     this.enemies = []
     this.enemyTimer = 0
     this.enemyInterval = 1000
+    this.speed = 1
 
     this.player = new Player(this)
   }
@@ -36,7 +37,7 @@ export default class Game {
       this.enemyTimer += deltaTime
     }
 
-    this.background.update(deltaTime)
+    this.background.update()
 
     this.enemies.forEach((enemy) => {
       enemy.update(deltaTime)

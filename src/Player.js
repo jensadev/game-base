@@ -16,6 +16,8 @@ export default class Player {
     this.speedY = 0
     this.maxSpeed = 6
     this.ammo = 100
+    this.ammoInterval = 1000
+    this.ammoTimer = 0
   }
 
   update(deltaTime) {
@@ -37,6 +39,13 @@ export default class Player {
 
     this.y += this.speedY
     this.x += this.speedX
+
+    if (this.ammoTimer > this.ammoInterval) {
+      this.ammo++
+      this.ammoTimer = 0
+    } else {
+      this.ammoTimer += deltaTime
+    }
 
     // projectiles
     this.projectiles.forEach((projectile) => {
