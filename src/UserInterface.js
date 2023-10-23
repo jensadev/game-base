@@ -20,6 +20,7 @@ export default class UserInterface {
       20,
       100
     )
+    context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 150)
 
     if (this.game.gameOver) {
       context.textAlign = 'center'

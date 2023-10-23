@@ -5,8 +5,8 @@ export default class Player {
     this.game = game
     this.width = 32
     this.height = 64
-    this.x = 50
-    this.y = 100
+    this.x = this.game.width / 2 - this.width / 2
+    this.y = this.game.height - this.height - 40
 
     this.frameX = 0
 
@@ -14,7 +14,8 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 10
+    this.maxSpeed = 6
+    this.ammo = 100
   }
 
   update(deltaTime) {
@@ -63,8 +64,11 @@ export default class Player {
   }
 
   shoot() {
-    this.projectiles.push(
-      new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
-    )
+    if (this.ammo > 0) {
+      this.ammo--
+      this.projectiles.push(
+        new Projectile(this.game, this.x + this.width / 2, this.y - 10)
+      )
+    }
   }
 }

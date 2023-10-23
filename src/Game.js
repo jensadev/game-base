@@ -2,12 +2,14 @@ import Slime from './Slime.js'
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
+import Background from './Background.js'
 export default class Game {
   constructor(width, height) {
     this.width = width
     this.height = height
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
+    this.background = new Background(this)
     this.keys = []
     this.gameOver = false
     this.gravity = 1
@@ -34,6 +36,8 @@ export default class Game {
       this.enemyTimer += deltaTime
     }
 
+    this.background.update(deltaTime)
+
     this.enemies.forEach((enemy) => {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
@@ -50,6 +54,7 @@ export default class Game {
   }
 
   draw(context) {
+    this.background.draw(context)
     this.ui.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))

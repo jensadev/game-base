@@ -6,13 +6,13 @@ export default class Projectile {
     this.x = x
     this.y = y
 
-    this.speed = 5
+    this.speed = 8
     this.damage = 1
     this.markedForDeletion = false
   }
 
   update() {
-    this.x += this.speed
+    this.y -= this.speed
     if (this.x > this.game.width) {
       this.markedForDeletion = true
     }

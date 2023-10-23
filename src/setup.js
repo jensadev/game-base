@@ -2,8 +2,8 @@ import Game from './Game'
 
 export function setup(canvas) {
   const ctx = canvas.getContext('2d')
-  canvas.width = 854
-  canvas.height = 480
+  canvas.width = 600
+  canvas.height = 800
 
   const game = new Game(canvas.width, canvas.height)
   let lastTime = 0

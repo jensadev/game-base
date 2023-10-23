@@ -9,7 +9,9 @@ export default class Enemy {
 
   update() {
     this.x += this.speedX
+    this.y += this.speedY
     if (this.x < 0) this.markedForDeletion = true
+    // if (this.y > this.game.height) this.markedForDeletion = true
   }
 
   draw(context) {
