@@ -73,6 +73,7 @@ export default class Player {
     context.fillRect(this.x, this.y, this.width, this.height)
     if (this.game.debug) {
       context.strokeStyle = '#000'
+      context.strokeRect(this.x, this.y, this.width, this.height)
       context.lineWidth = 1
       context.beginPath()
       const dx = this.game.input.mouseX - (this.x + this.width / 2)
