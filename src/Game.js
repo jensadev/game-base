@@ -1,6 +1,7 @@
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
+import Pumpkin from './Pumpkin.js'
 export default class Game {
   constructor(width, height, canvasPosition) {
     this.width = width
@@ -14,6 +15,9 @@ export default class Game {
     this.gravity = 1
     this.debug = false
     this.gameTime = 0
+    this.enemies = []
+    this.enemyTimer = 0
+    this.enemyInterval = 1000
 
     this.player = new Player(this)
   }
@@ -22,11 +26,56 @@ export default class Game {
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }
+
+    if (this.enemyTimer > this.enemyInterval) {
+      let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+      let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+      if (x === 0) {
+        y = Math.random() * this.height // if on left edge, randomize y position
+      } else if (x === this.width) {
+        y = Math.random() * this.height // if on right edge, randomize y position
+      } else if (y === 0) {
+        x = Math.random() * this.width // if on top edge, randomize x position
+      } else {
+        x = Math.random() * this.width // if on bottom edge, randomize x position
+      }
+      console.log('fiende', x, y)
+      this.enemies.push(new Pumpkin(this, x, y))
+      this.enemyTimer = 0
+    } else {
+      this.enemyTimer += deltaTime
+    }
     this.player.update(deltaTime)
+
+    this.enemies.forEach((enemy) => {
+      enemy.update(this.player)
+      if (this.checkCollision(this.player, enemy)) {
+        enemy.markedForDeletion = true
+      }
+      this.player.projectiles.forEach((projectile) => {
+        if (this.checkCollision(projectile, enemy)) {
+          enemy.markedForDeletion = true
+          projectile.markedForDeletion = true
+        }
+      })
+    })
+    this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
   }
 
   draw(context) {
     this.ui.draw(context)
     this.player.draw(context)
+    this.enemies.forEach((enemy) => {
+      enemy.draw(context)
+    })
+  }
+
+  checkCollision(object1, object2) {
+    return (
+      object1.x < object2.x + object2.width &&
+      object1.x + object1.width > object2.x &&
+      object1.y < object2.y + object2.height &&
+      object1.height + object1.y > object2.y
+    )
   }
 }

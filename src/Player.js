@@ -5,14 +5,16 @@ export default class Player {
     this.game = game
     this.width = 32
     this.height = 64
-    this.x = 50
-    this.y = 100
+    this.x = this.game.width / 2 - this.width / 2
+    this.y = this.game.height / 2 - this.height / 2
 
     this.projectiles = []
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 10
+    this.maxSpeed = 6
+
+    this.ammo = 20
   }
 
   update(deltaTime) {
