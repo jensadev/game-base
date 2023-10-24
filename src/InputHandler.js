@@ -5,7 +5,6 @@ export default class InputHandler {
     this.mouseY = 0
 
     window.addEventListener('keydown', (event) => {
-      console.log(event.key)
       if (
         (event.key === 'ArrowUp' ||
           event.key === 'ArrowDown' ||

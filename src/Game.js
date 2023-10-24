@@ -13,6 +13,7 @@ export default class Game {
     this.gameOver = false
     this.gravity = 1
     this.debug = false
+    this.gameTime = 0
 
     this.player = new Player(this)
   }

@@ -51,29 +51,22 @@ export default class Player {
   }
 
   draw(context) {
+    context.fillStyle = '#f00'
+    context.fillRect(this.x, this.y, this.width, this.height)
     if (this.game.debug) {
-      // draw a line using the angle from the player to the mouse
-      context.strokeStyle = '#0f0'
+      context.strokeStyle = '#000'
       context.lineWidth = 1
       context.beginPath()
       const dx = this.game.input.mouseX - (this.x + this.width / 2)
       const dy = this.game.input.mouseY - (this.y + this.height / 2)
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      const maxLength = 100
-      if (distance > maxLength) {
-        const angle = Math.atan2(dy, dx)
-        const x = this.x + this.width / 2 + maxLength * Math.cos(angle)
-        const y = this.y + this.height / 2 + maxLength * Math.sin(angle)
-        context.moveTo(this.x + this.width / 2, this.y + this.height / 2)
-        context.lineTo(x, y)
-      } else {
-        context.moveTo(this.x + this.width / 2, this.y + this.height / 2)
-        context.lineTo(this.game.input.mouseX, this.game.input.mouseY)
-      }
+      const maxLength = 60
+      const angle = Math.atan2(dy, dx)
+      const x = this.x + this.width / 2 + maxLength * Math.cos(angle)
+      const y = this.y + this.height / 2 + maxLength * Math.sin(angle)
+      context.moveTo(this.x + this.width / 2, this.y + this.height / 2)
+      context.lineTo(x, y)
       context.stroke()
     }
-    context.fillStyle = '#f00'
-    context.fillRect(this.x, this.y, this.width, this.height)
 
     this.projectiles.forEach((projectile) => {
       projectile.draw(context)
