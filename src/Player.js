@@ -14,10 +14,19 @@ export default class Player {
     this.speedY = 0
     this.maxSpeed = 6
 
+    this.maxAmmo = 20
     this.ammo = 20
+    this.ammoTimer = 0
+    this.ammoInterval = 500
+
+    this.lives = 10
   }
 
   update(deltaTime) {
+    if (this.lives <= 0) {
+      this.game.gameOver = true
+    }
+
     if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
       this.speedX = -this.maxSpeed
     } else if (
@@ -42,6 +51,13 @@ export default class Player {
 
     this.y += this.speedY
     this.x += this.speedX
+
+    if (this.ammoTimer > this.ammoInterval && this.ammo < this.maxAmmo) {
+      this.ammoTimer = 0
+      this.ammo++
+    } else {
+      this.ammoTimer += deltaTime
+    }
 
     // projectiles
     this.projectiles.forEach((projectile) => {
@@ -82,13 +98,18 @@ export default class Player {
       mouseX - (this.x + this.width / 2)
     )
 
-    this.projectiles.push(
-      new Projectile(
-        this.game,
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        angle
+    if (this.ammo > 0) {
+      this.ammo--
+      this.projectiles.push(
+        new Projectile(
+          this.game,
+          this.x + this.width / 2,
+          this.y + this.height / 2,
+          angle
+        )
       )
-    )
+    } else {
+      console.log('out of ammo')
+    }
   }
 }
