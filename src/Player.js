@@ -14,12 +14,13 @@ export default class Player {
     this.speedY = 0
     this.maxSpeed = 6
 
-    this.maxAmmo = 20
-    this.ammo = 20
+    this.maxAmmo = 1000000000000
+    this.ammo = 5
     this.ammoTimer = 0
-    this.ammoInterval = 500
+    this.ammoInterval = 10000000000
 
     this.lives = 10
+    this.damage = 1
   }
 
   update(deltaTime) {
@@ -54,7 +55,7 @@ export default class Player {
 
     if (this.ammoTimer > this.ammoInterval && this.ammo < this.maxAmmo) {
       this.ammoTimer = 0
-      this.ammo++
+      this.ammo += 1
     } else {
       this.ammoTimer += deltaTime
     }
@@ -106,7 +107,8 @@ export default class Player {
           this.game,
           this.x + this.width / 2,
           this.y + this.height / 2,
-          angle
+          angle,
+          this.damage
         )
       )
     } else {

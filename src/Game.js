@@ -3,6 +3,9 @@ import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
 import Candy from './Candy.js'
+import PowerUp from './PowerUp.js'
+
+
 export default class Game {
   constructor(width, height, canvasPosition) {
     this.width = width
@@ -11,14 +14,13 @@ export default class Game {
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
     this.keys = []
-    this.enemies = []
     this.gameOver = false
     this.gravity = 1
-    this.debug = false
+    this.debug = true
     this.gameTime = 0
     this.enemies = []
     this.enemyTimer = 0
-    this.enemyInterval = 1000
+    this.enemyInterval = 750
 
     this.player = new Player(this)
   }
@@ -38,11 +40,14 @@ export default class Game {
       } else if (y === 0) {
         x = Math.random() * this.width // if on top edge, randomize x position
       } else {
-        x = Math.random() * this.width // if on bottom edge, randomize x position
+        x = Math.random() * this.width // if on bottom edge, randomizea x position
       }
-      if (Math.random() < 0.2) {
-        this.enemies.push(new Candy(this, x, y))
-      } else {
+      if (Math.random() < 0.4) {
+        this.enemies.push(new Candy(this, Math.random() * (this.width - 0) + 0, y))
+      } else if (Math.random() < 0.6) {
+        this.enemies.push(new PowerUp(this, Math.random() * (this.width - 0) + 0, y))
+      }
+      else {
         this.enemies.push(new Pumpkin(this, x, y))
       }
       this.enemyTimer = 0
@@ -51,18 +56,23 @@ export default class Game {
     }
     this.player.update(deltaTime)
 
-    this.enemies.forEach((enemy) => {
+    this.enemies.forEach((enemy,) => {
       enemy.update(this.player)
       if (this.checkCollision(this.player, enemy)) {
         this.player.lives--
         enemy.markedForDeletion = true
         if (enemy.type === 'candy') {
           this.player.ammo += 5
+          this.player.lives++
+        }
+        if (enemy.type === 'powerup') {
+          this.player.damage++
+          this.player.lives++
         }
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          if (enemy.lives > 1) {
+          if (enemy.lives > projectile.damage) {
             enemy.lives -= projectile.damage
           } else {
             enemy.markedForDeletion = true

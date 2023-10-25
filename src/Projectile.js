@@ -1,5 +1,5 @@
 export default class Projectile {
-  constructor(game, x, y, angle) {
+  constructor(game, x, y, angle, damage) {
     this.game = game
     this.width = 10
     this.height = 4
@@ -8,7 +8,7 @@ export default class Projectile {
     this.angle = angle
 
     this.speed = 400
-    this.damage = 1
+    this.damage = damage
     this.markedForDeletion = false
   }
 
