@@ -20,6 +20,7 @@ export default class Player {
     this.ammoTimer = 0
     this.ammoInterval = Infinity
 
+    this.shots = 1
     this.lives = 10
     this.damage = 1
   }
@@ -104,15 +105,19 @@ export default class Player {
     if (this.ammo > 0) {
       this.color = '#f00'
       this.ammo--
+      let i = 0
+      while(i < this.shots){
       this.projectiles.push(
         new Projectile(
           this.game,
           this.x + this.width / 2,
-          this.y + this.height / 2,
+          this.y + i*10 + this.height / 2,
           angle,
           this.damage
         )
       )
+      i++
+        }
       if (this.ammo == 0) {
         this.color = '#f40'
       }

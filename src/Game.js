@@ -112,8 +112,10 @@ export default class Game {
           console.log(pickup.taste)
           if (pickup.taste < 1) {
             this.player.damage++
-          } else {
+          } else if (pickup.taste < 2){
             this.player.lives++
+          } else {
+            this.player.shots++
           }
         }
         pickup.markedForDeletion = true
