@@ -113,9 +113,18 @@ export default class Game {
           if (pickup.taste < 1) {
             this.player.damage++
           } else if (pickup.taste < 2){
-            this.player.lives++
-          } else {
+            this.player.lives += 5
+          } else if (pickup.taste < 3){
             this.player.shots++
+          } else if (pickup.taste < 4){
+            this.player.maxSpeed += 1
+          } else {
+            if (this.player.width > 8 && this.player.height > 8){
+              this.player.width *= 0.75
+              this.player.height *= 0.75
+              } else {
+                this.player.lives += 5
+              }
           }
         }
         pickup.markedForDeletion = true

@@ -110,8 +110,8 @@ export default class Player {
       this.projectiles.push(
         new Projectile(
           this.game,
-          this.x + this.width / 2,
-          this.y + i*10 + this.height / 2,
+          this.x - i*10 + this.width / 2,
+          this.y - i*10 + this.height / 2,
           angle,
           this.damage
         )
