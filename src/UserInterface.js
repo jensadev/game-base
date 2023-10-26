@@ -24,14 +24,13 @@ export default class UserInterface {
     }
     context.fillText(`Ammo: ${this.game.player.ammo}`,this.game.width / 2, 130)
     context.fillStyle = this.color
-    context.font = `${this.fontSize}px ${this.fontFamily}`
     if (this.game.gameOver) {
       context.textAlign = 'center'
-      context.font = `50px ${this.fontFamily}`
+      context.font = `150px ${this.fontFamily}`
       context.fillText(
-        'Game over',
+        'GAME OVER',
         this.game.width / 2,
-        this.game.height / 2 - 20
+        this.game.height / 2
       )
     }
 
