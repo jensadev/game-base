@@ -18,8 +18,13 @@ export default class UserInterface {
     context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 10, 70)
     context.textAlign = 'center'
     context.fillText(`Lives: ${this.game.player.lives}`, this.game.width / 2, 70)
+    if (this.game.player.ammo == 0){
+      context.fillStyle = '#FF0000'
+      context.font = '100px Arial'
+    }
     context.fillText(`Ammo: ${this.game.player.ammo}`,this.game.width / 2, 130)
-
+    context.fillStyle = this.color
+    context.font = `${this.fontSize}px ${this.fontFamily}`
     if (this.game.gameOver) {
       context.textAlign = 'center'
       context.font = `50px ${this.fontFamily}`

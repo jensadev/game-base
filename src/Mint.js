@@ -9,7 +9,6 @@ export default class Mint extends Pickup {
     this.x = x
     this.y = y
     this.lives = 1
-    this.color = '#22dd8d'
     this.sprite = new Image()
     this.sprite.src = Sprite
     this.type = 'mint'
