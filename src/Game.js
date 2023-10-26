@@ -33,9 +33,9 @@ export default class Game {
   }
 
   update(deltaTime) {
-    if (this.enemies.length > 19){
-      this.enemyInterval = 0
-      this.explode = 100
+    if (this.enemies.length > 29){
+      this.player.lives -= 1
+      this.explode += 5
       this.enemies = []
     }
     if (!this.gameOver) {
