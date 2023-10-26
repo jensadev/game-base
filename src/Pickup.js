@@ -1,10 +1,10 @@
 export default class Pickup {
     constructor(game, color) {
         this.game = game
-        this.x = 0
-        this.y = 0
         this.width = this.width
         this.height = this.height
+        this.x = 0
+        this.y = 0
         this.speedX = 0
         this.speedY = 0
         this.markedForDeletion = false

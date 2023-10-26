@@ -22,7 +22,6 @@ export default class Game {
     this.enemies = []
     this.enemyTimer = 0
     this.enemyInterval = 1000
-    this.rampUp = 0.2
     this.kills = 0
 
     this.pickups = []
@@ -74,7 +73,6 @@ export default class Game {
             } else if (this.player.ammo == 0) {
               this.createPickup(Mint, this.x, this.y)
             }
-            this.rampUp += 0.2
             this.kills += 1
             enemy.markedForDeletion = true
             if (this.kills == 10) {
@@ -86,22 +84,6 @@ export default class Game {
         }
       })
     })
-
-    // Create Pickups
-    /* if (this.pickupTimer > this.pickupInterval) {
-       let x = Math.random() * (this.width - 0) + 0
-       let y = Math.random() * (this.height - 0) + 0
-       let pickup = Math.floor(Math.random() * (10 - 0) + 0)
-       if (pickup < 9) {
-         this.pickups.push(new Candy(this, x, y))
-       } else {
-         this.pickups.push(new PowerUp(this, x, y))
-       }
-       this.pickupTimer = 0
-     } else {
-       this.pickupTimer += deltaTime
-     }*/
-
 
     // Pickup collisions with player
     this.pickups.forEach((pickup) => {

@@ -42,11 +42,6 @@ export default class UserInterface {
       context.fillText(`x: ${this.game.player.x}`, this.game.width - 20, 25)
       context.fillText(`y: ${this.game.player.y}`, this.game.width - 20, 50)
       context.fillText(
-        `mouseX: ${this.game.input.mouseX}`,
-        this.game.width - 20,
-        75
-      )
-      context.fillText(
         `mouseY: ${this.game.input.mouseY}`,
         this.game.width - 20,
         100
