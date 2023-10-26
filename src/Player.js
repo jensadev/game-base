@@ -14,10 +14,10 @@ export default class Player {
     this.speedY = 0
     this.maxSpeed = 6
 
-    this.maxAmmo = 1000000000000
-    this.ammo = 5
+    this.maxAmmo = Infinity
+    this.ammo = 20
     this.ammoTimer = 0
-    this.ammoInterval = 10000000000
+    this.ammoInterval = Infinity
 
     this.lives = 10
     this.damage = 1

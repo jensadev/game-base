@@ -1,6 +1,6 @@
-import Enemy from './Enemy.js'
+import Pickup from './Pickup.js'
 
-export default class PowerUp extends Enemy {
+export default class PowerUp extends Pickup {
     constructor(game, x, y) {
         super(game)
         this.width = 8
