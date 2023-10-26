@@ -29,10 +29,27 @@ export default class Player {
   }
 
   update(deltaTime) {
+
+    // Player Death
     if (this.lives <= 0) {
       this.game.gameOver = true
     }
 
+    // Player Bounds
+    if (this.x < 0){
+      this.x = this.game.width
+    }
+    if (this.x > this.game.width){
+      this.x = 0
+    }
+    if (this.y < 0){
+      this.y = this.game.height
+    } 
+    if (this.y > this.game.height){
+      this.y = 0
+    }
+
+    // Player movement
     if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
       this.speedX = -this.maxSpeed
     } else if (

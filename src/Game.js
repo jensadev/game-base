@@ -81,7 +81,7 @@ export default class Game {
             }
             this.kills += 1
             enemy.markedForDeletion = true
-            if (this.kills == 10) {
+            if (this.kills == 5) {
               this.createPickup(Gumball, this.x, this.y)
               this.kills = 0
             }
