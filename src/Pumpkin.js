@@ -4,14 +4,14 @@ import Sprite from './assets/sprites/Pumpkin.png'
 export default class Pumpkin extends Enemy {
   constructor(game, x, y) {
     super(game)
-    this.width = 64
-    this.height = 54
+    this.width = 64 + this.game.explode
+    this.height = 54 + this.game.explode
     this.sprite = new Image()
     this.sprite.src = Sprite
     this.x = x
     this.y = y
-    this.lives = 1 + Math.floor(Math.pow(game.gameTime/10000, 2))
-    this.speed = Math.floor(7-this.lives)
+    this.lives = 1 + Math.floor(Math.pow(game.gameTime/10000, 2)) + this.game.explode
+    this.speed = Math.floor(7-this.lives) + this.game.explode*2
     if (this.speed < 2){
       this.speed = 2
     }

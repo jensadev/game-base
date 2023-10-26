@@ -23,6 +23,7 @@ export default class Game {
     this.enemyTimer = 0
     this.enemyInterval = 1000
     this.kills = 0
+    this.explode = 0
 
     this.pickups = []
     this.pickupTimer = 0
@@ -32,6 +33,11 @@ export default class Game {
   }
 
   update(deltaTime) {
+    if (this.enemies.length > 19){
+      this.enemyInterval = 0
+      this.explode = 100
+      this.enemies = []
+    }
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }
