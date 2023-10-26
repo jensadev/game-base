@@ -1,10 +1,13 @@
 import Enemy from './Enemy.js'
+import Sprite from './assets/sprites/Pumpkin.png'
 
 export default class Pumpkin extends Enemy {
   constructor(game, x, y) {
     super(game)
     this.width = 64
-    this.height = 64
+    this.height = 54
+    this.sprite = new Image()
+    this.sprite.src = Sprite
     this.x = x
     this.y = y
     this.lives = Math.floor(1 + game.rampUp)

@@ -1,10 +1,13 @@
 import Projectile from './Projectile.js'
+import Sprite from './assets/sprites/BlackCat.png'
 
 export default class Player {
   constructor(game) {
     this.game = game
     this.width = 24
     this.height = 24
+    this.sprite = new Image()
+    this.sprite.src = Sprite 
     this.x = this.game.width / 2 - this.width / 2
     this.y = this.game.height / 2 - this.height / 2
     this.color = '#f00'
@@ -73,7 +76,7 @@ export default class Player {
 
   draw(context) {
     context.fillStyle = this.color
-    context.fillRect(this.x, this.y, this.width, this.height)
+    context.drawImage(this.sprite, this.x, this.y, this.width, this.height)
     if (this.game.debug) {
       context.strokeStyle = '#000'
       context.strokeRect(this.x, this.y, this.width, this.height)

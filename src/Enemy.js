@@ -3,6 +3,7 @@ export default class Enemy {
     this.game = game
     this.x = 0
     this.y = 0
+    this.sprite = this.sprite
     this.speedX = 0
     this.speedY = 0
     this.markedForDeletion = false
@@ -19,7 +20,7 @@ export default class Enemy {
 
   draw(context) {
     context.fillStyle = this.color
-    context.fillRect(this.x, this.y, this.width, this.height)
+    context.drawImage(this.sprite, this.x, this.y, this.width, this.height)
     context.fillStyle = 'black'
     context.font = '40px Arial'
     context.fillText(this.lives, this.x, this.y - 5)
