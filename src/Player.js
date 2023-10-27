@@ -4,9 +4,10 @@ export default class Player {
   constructor(game) {
     this.game = game
     this.width = 32
-    this.height = 64
+    this.height = 32
     this.x = this.game.width / 2 - this.width / 2
     this.y = this.game.height / 2 - this.height / 2
+    this.color = '#f00'
 
     this.projectiles = []
 
@@ -70,7 +71,7 @@ export default class Player {
   }
 
   draw(context) {
-    context.fillStyle = '#f00'
+    context.fillStyle = this.color
     context.fillRect(this.x, this.y, this.width, this.height)
     if (this.game.debug) {
       context.strokeStyle = '#000'
@@ -101,6 +102,7 @@ export default class Player {
     )
 
     if (this.ammo > 0) {
+      this.color = '#f00'
       this.ammo--
       this.projectiles.push(
         new Projectile(
@@ -111,7 +113,20 @@ export default class Player {
           this.damage
         )
       )
+      if (this.ammo == 0) {
+        this.color = '#f40'
+      }
     } else {
+      this.lives--
+      this.projectiles.push(
+        new Projectile(
+          this.game,
+          this.x + this.width / 2,
+          this.y + this.height / 2,
+          angle,
+          this.damage
+        )
+      )
       console.log('out of ammo')
     }
   }

@@ -69,6 +69,8 @@ export default class Game {
           } else {
             if (Math.floor(Math.random() * (5 - 1) + 1) == 1) {
               this.createPickup(Candy, this.x, this.y)
+            } else if (this.player.ammo < 2) {
+              this.createPickup(Candy, this.x, this.y)
             }
             enemy.markedForDeletion = true
           }
