@@ -20,15 +20,14 @@ export default class Enemy {
   draw(context) {
     context.fillStyle = this.color
     context.fillRect(this.x, this.y, this.width, this.height)
-
+    context.fillStyle = 'black'
+    context.font = '40px Arial'
+    context.fillText(this.lives, this.x, this.y - 5)
     if (this.game.debug) {
       context.strokeRect(this.x, this.y, this.width, this.height)
-      context.fillStyle = 'black'
-      context.font = '20px Arial'
-      context.fillText(this.lives, this.x, this.y - 5)
       context.font = '12px Arial'
-      context.fillText(`x: ${this.x.toFixed()}`, this.x + 20, this.y - 5)
-      context.fillText(`y: ${this.y.toFixed()}`, this.x + 20, this.y - 20)
+      context.fillText(`x: ${this.x.toFixed()}`, this.x + 20, this.y - 25)
+      context.fillText(`y: ${this.y.toFixed()}`, this.x + 20, this.y - 40)
     }
   }
 }

@@ -16,7 +16,7 @@ export default class Game {
     this.keys = []
     this.gameOver = false
     this.gravity = 1
-    this.debug = true
+    this.debug = false
     this.gameTime = 0
 
     this.enemies = []
