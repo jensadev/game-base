@@ -2,8 +2,8 @@ import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
-import Candy from './Candy.js'
-import PowerUp from './PowerUp.js'
+import Mint from './Mint.js'
+import Gumball from './Gumball.js'
 
 
 export default class Game {
@@ -22,6 +22,8 @@ export default class Game {
     this.enemies = []
     this.enemyTimer = 0
     this.enemyInterval = 1000
+    this.rampUp = 0.2
+    this.kills = 0
 
     this.pickups = []
     this.pickupTimer = 0
@@ -68,11 +70,17 @@ export default class Game {
             enemy.lives -= projectile.damage
           } else {
             if (Math.floor(Math.random() * (5 - 1) + 1) == 1) {
-              this.createPickup(Candy, this.x, this.y)
-            } else if (this.player.ammo < 2) {
-              this.createPickup(Candy, this.x, this.y)
+              this.createPickup(Mint, this.x, this.y)
+            } else if (this.player.ammo == 0) {
+              this.createPickup(Mint, this.x, this.y)
             }
+            this.rampUp += 0.2
+            this.kills += 1
             enemy.markedForDeletion = true
+            if (this.kills == 10) {
+              this.createPickup(Gumball, this.x, this.y)
+              this.kills = 0
+            }
           }
           projectile.markedForDeletion = true
         }
@@ -98,9 +106,9 @@ export default class Game {
     // Pickup collisions with player
     this.pickups.forEach((pickup,) => {
       if (this.checkCollision(this.player, pickup)) {
-        if (pickup.type === 'candy') {
+        if (pickup.type === 'mint') {
           this.player.ammo += 5
-        } else {
+        } else if (pickup.type === 'gumball') {
           this.player.damage++
         }
         pickup.markedForDeletion = true

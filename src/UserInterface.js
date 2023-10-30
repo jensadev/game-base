@@ -65,7 +65,12 @@ export default class UserInterface {
         this.game.width - 20,
         200
       )
-      context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 225)
+      context.fillText(
+        `kills: ${this.game.kills}`,
+        this.game.width - 20,
+        225
+      )
+      context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 250)
     }
 
     context.restore()

@@ -1,14 +1,14 @@
 import Pickup from './Pickup.js'
 
-export default class PowerUp extends Pickup {
+export default class Gumball extends Pickup {
     constructor(game, x, y) {
         super(game)
         this.width = 8
         this.height = 8
-        this.x = x
+        this.x = xs
         this.y = y
-        this.lives = 1
+        this.taste = (Math.random() * (2 - 1) + 1)
         this.color = '#ff00ff'
-        this.type = 'powerup'
+        this.type = 'gumball'
     }
 }

@@ -1,6 +1,6 @@
 import Pickup from './Pickup.js'
 
-export default class Candy extends Pickup {
+export default class Mint extends Pickup {
   constructor(game, x, y) {
     super(game)
     this.width = 32
@@ -8,7 +8,7 @@ export default class Candy extends Pickup {
     this.x = x
     this.y = y
     this.lives = 1
-    this.color = '#0f0'
-    this.type = 'candy'
+    this.color = '#22dd8d'
+    this.type = 'mint'
   }
 }
