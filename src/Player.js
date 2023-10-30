@@ -28,9 +28,11 @@ export default class Player {
     this.frameX = 0
     this.frameY = 1
     this.maxFrame = 8
-    this.fps = 20
-    this.timer = 0
-    this.interval = 1000 / this.fps
+    this.animationFps = 20
+    this.animationTimer = 0
+    this.animationInterval = 1000 / this.animationFps
+    this.idleFrames = 10
+    this.runFrames = 8
 
     // flip sprite direction
     this.flip = false
@@ -59,8 +61,10 @@ export default class Player {
     // play run or idle animation
     if (this.speedX !== 0) {
       this.frameY = 1
+      this.maxFrame = this.runFrames
     } else {
       this.frameY = 0
+      this.maxFrame = this.idleFrames
     }
 
     this.y += this.speedY
@@ -82,11 +86,11 @@ export default class Player {
     }
 
     // sprite animation update
-    if (this.timer > this.interval) {
+    if (this.animationTimer > this.animationInterval) {
       this.frameX++
-      this.timer = 0
+      this.animationTimer = 0
     } else {
-      this.timer += deltaTime
+      this.animationTimer += deltaTime
     }
 
     // reset frameX when it reaches maxFrame

@@ -56,3 +56,45 @@ I draw funktionen behöver vi sedan använda dessa.
 
     context.restore()
 ```
+
+## 9.5 - Ställa in antalet frames i animationen
+
+För att animera så flyttar vi vad vi ritar upp för att skapa frames, eller bildrutor. Vi styr vilken animation vi ritar ut med `frameY` egenskapen. Max antalet rutor att rita ut styrs av variabeln `maxFrames`. 
+Men när en sprite inte har lika många rutor för alla animationerna så stöter vi på problem, saknas det rutor så ritas inget ut (testa att i steg 9 ändra maxFrames till 11, det kommer då bli några tomma rutor i run animationen).
+
+Vi kan lösa detta genom att spara antalet frames som hör till animationen i en variabel och sedan modifera maxFrames.
+
+`Player.js`
+```javascript
+constructor() {
+  ...
+  this.animationFps = 20
+  this.animationTimer = 0
+  this.animationInterval = 1000 / this.animationFps
+  this.idleFrames = 10
+  this.runFrames = 8
+}
+```
+
+Sedan använder vi dessa värden och justerar maxFrames när vi byter animation.
+
+`Player.js`
+```javascript
+update() {
+  ...
+  // play run or idle animation
+  if (this.speedX !== 0) {
+    this.frameY = 1
+    this.maxFrame = this.runFrames
+  } else {
+    this.frameY = 0
+    this.maxFrame = this.idleFrames
+  }
+}
+```
+
+Nu har vi möjligheten att styra hur många frames som ska spelas upp i varje animation. 
+
+### Fler bilder
+
+Det kan vara så att bilderna ni har inte finns samlade i ett stort spritesheet, utan animationerna laddas från olika filer. Då kan vi byta source bild när vi byter animation, ni behöver alltså skapa olika image element för er sprite och sedan växla mellan dessa.
