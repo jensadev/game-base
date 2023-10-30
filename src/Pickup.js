@@ -6,6 +6,7 @@ export default class Pickup {
         this.speedX = 0
         this.speedY = 0
         this.markedForDeletion = false
+        this.taste = this.taste
         this.color = color
         this.type = 'pickup'
     }

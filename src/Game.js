@@ -104,12 +104,17 @@ export default class Game {
 
 
     // Pickup collisions with player
-    this.pickups.forEach((pickup,) => {
+    this.pickups.forEach((pickup) => {
       if (this.checkCollision(this.player, pickup)) {
         if (pickup.type === 'mint') {
           this.player.ammo += 5
         } else if (pickup.type === 'gumball') {
-          this.player.damage++
+          console.log(pickup.taste)
+          if (pickup.taste < 1) {
+            this.player.damage++
+          } else {
+            this.player.lives++
+          }
         }
         pickup.markedForDeletion = true
       }
