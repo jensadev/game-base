@@ -18,6 +18,8 @@ export default class UserInterface {
     context.fillText(`Lives: ${this.game.player.lives}`, 20, 30)
     context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 60)
     context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
+    context.fillText(`Weapon: ${this.game.player.weapon.name}`, 20, 120)
+    // console.log(this.game.player.weapon.type)
 
     if (this.game.gameOver) {
       context.textAlign = 'center'

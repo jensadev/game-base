@@ -1,4 +1,5 @@
 import Projectile from './Projectile.js'
+import Weapon from './Weapon.js'
 
 export default class Player {
   constructor(game) {
@@ -20,6 +21,10 @@ export default class Player {
     this.ammoInterval = 500
 
     this.lives = 10
+
+    this.inventory = [new Weapon(this.game, 'AXE'), new Weapon(this.game, 'SG')]
+    this.weapon = null
+    this.weaponSwap('2')
   }
 
   update(deltaTime) {
@@ -52,6 +57,8 @@ export default class Player {
     this.y += this.speedY
     this.x += this.speedX
 
+    this.weapon.update(this)
+
     if (this.ammoTimer > this.ammoInterval && this.ammo < this.maxAmmo) {
       this.ammoTimer = 0
       this.ammo++
@@ -71,6 +78,9 @@ export default class Player {
   draw(context) {
     context.fillStyle = '#f00'
     context.fillRect(this.x, this.y, this.width, this.height)
+
+    this.weapon.draw(context)
+
     if (this.game.debug) {
       context.strokeStyle = '#000'
       context.strokeRect(this.x, this.y, this.width, this.height)
@@ -111,6 +121,42 @@ export default class Player {
       )
     } else {
       console.log('out of ammo')
+    }
+  }
+
+  weaponSwap(key) {
+    let weaponToSwap = ''
+    switch (key) {
+      case '1':
+        weaponToSwap = 'AXE'
+        break
+      case '2':
+        weaponToSwap = 'SG'
+        break
+      case '3':
+        weaponToSwap = 'SSG'
+        break
+      case '4':
+        weaponToSwap = 'SNAIL'
+        break
+      case '5':
+        weaponToSwap = 'RL'
+        break
+      case '6':
+        weaponToSwap = 'SHAFT'
+        break
+      default:
+        break
+    }
+
+    // Check if weapon is in inventory
+    // let weaponIndex =
+    let weapon = this.inventory.find((weapon) => weapon.name === weaponToSwap)
+    if (weapon) {
+      this.weapon = weapon
+      console.log('weapon swapped to ' + weaponToSwap)
+    } else {
+      console.log(weaponToSwap + ' is not in inventory')
     }
   }
 }
