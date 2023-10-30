@@ -5,9 +5,10 @@ import Background from './Background.js'
 import Sound from './Sound.js'
 
 export default class Game {
-  constructor(width, height) {
+  constructor(width, height, canvasPosition) {
     this.width = width
     this.height = height
+    this.canvasPosition = canvasPosition
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
     this.background = new Background(this)
@@ -15,6 +16,7 @@ export default class Game {
     this.gameOver = false
     this.gravity = 1
     this.debug = false
+    this.debugColor = '#fff'
     this.gameTime = 0
 
     this.enemies = []
@@ -107,6 +109,7 @@ export default class Game {
     this.ui.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
+    this.background.nearLayer.draw(context)
   }
 
   addEnemy() {

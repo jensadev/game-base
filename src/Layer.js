@@ -19,7 +19,7 @@ export default class Layer {
   draw(context) {
     if (this.game.debug) {
       // draw box around layer
-      context.strokeStyle = 'black'
+      context.strokeStyle = this.game.debugColor
       context.strokeRect(
         this.x - 1,
         this.y - 1,

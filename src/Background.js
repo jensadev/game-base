@@ -1,6 +1,7 @@
 import bgImage from './assets/images/bg.png'
 import skyImage from './assets/images/sky.png'
 import fgImage from './assets/images/fg.png'
+import nearImage from './assets/images/near.png'
 import Layer from './Layer'
 
 export default class Background {
@@ -15,8 +16,11 @@ export default class Background {
     const fg = new Image()
     fg.src = fgImage
     this.fgLayer = new Layer(this.game, fg, 1120, 800, 0.4)
+    const near = new Image()
+    near.src = nearImage
+    this.nearLayer = new Layer(this.game, near, 1120, 800, 0.6)
 
-    this.layers = [this.skyLayer, this.bgLayer, this.fgLayer]
+    this.layers = [this.skyLayer, this.bgLayer, this.fgLayer, this.nearLayer]
   }
 
   update() {

@@ -1,12 +1,21 @@
+import Healthbar from './Healthbar'
+
 export default class UserInterface {
   constructor(game) {
     this.game = game
     this.fontSize = 25
     this.fontFamily = 'Arial'
     this.color = 'white'
+
+    this.healthbar = new Healthbar(this.game)
+  }
+
+  update(deltaTime) {
+    this.healthbar.update(deltaTime)
   }
 
   draw(context) {
+    this.healthbar.draw(context)
     context.save()
     context.fillStyle = this.color
     context.shadowOffsetX = 2
@@ -33,6 +42,7 @@ export default class UserInterface {
 
     // debug
     if (this.game.debug) {
+      context.fillStyle = this.game.debugColor
       context.font = `15px Arial`
       context.textAlign = 'right'
       context.fillText(`x: ${this.game.player.x}`, this.game.width - 20, 25)
