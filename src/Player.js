@@ -2,6 +2,7 @@ import Projectile from './Projectile.js'
 // import spriteImage from './assets/sprites/Idle Run (78x58).png'
 import idleAsset from './assets/sprites/Idle (78x58).png'
 import runAsset from './assets/sprites/Run (78x58).png'
+import attackAsset from './assets/sprites/Attack (78x58).png'
 
 export default class Player {
   constructor(game) {
@@ -26,6 +27,8 @@ export default class Player {
     idleImage.src = idleAsset
     const runImage = new Image()
     runImage.src = runAsset
+    const attackImage = new Image()
+    attackImage.src = attackAsset
 
     // sprite animation
     this.frameX = 0
@@ -41,10 +44,17 @@ export default class Player {
       image: runImage,
       frames: 8,
     }
+    this.attack = {
+      image: attackImage,
+      frames: 3,
+    }
     this.image = this.idle.image
 
     // flip sprite direction
     this.flip = false
+
+    // shooting
+    this.shooting = false
   }
 
   update(deltaTime) {
@@ -67,8 +77,15 @@ export default class Player {
       this.speedY += this.game.gravity
     }
 
+    console.log(this.shooting)
     // play run or idle animation
-    if (this.speedX !== 0) {
+    if (this.shooting) {
+      this.maxFrame = this.attack.frames
+      this.image = this.attack.image
+      if (this.frameX === this.attack.frames - 1) {
+        this.shooting = false
+      }
+    } else if (this.speedX !== 0) {
       this.maxFrame = this.run.frames
       this.image = this.run.image
     } else {
@@ -132,7 +149,7 @@ export default class Player {
     context.drawImage(
       this.image,
       this.frameX * this.width,
-      1 * this.height - 14,
+      -14,
       this.width,
       this.height,
       this.flip ? this.x * -1 - this.width : this.x,
@@ -145,6 +162,8 @@ export default class Player {
   }
 
   shoot() {
+    this.shooting = true
+    console.log('shoot ', this.shooting)
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )
