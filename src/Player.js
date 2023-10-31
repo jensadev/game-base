@@ -1,5 +1,7 @@
 import Projectile from './Projectile.js'
-import spriteImage from './assets/sprites/Idle Run (78x58).png'
+// import spriteImage from './assets/sprites/Idle Run (78x58).png'
+import idleAsset from './assets/sprites/Idle (78x58).png'
+import runAsset from './assets/sprites/Run (78x58).png'
 
 export default class Player {
   constructor(game) {
@@ -20,19 +22,26 @@ export default class Player {
     this.grounded = false
 
     // adding sprite image
-    const image = new Image()
-    image.src = spriteImage
-    this.image = image
+    const idleImage = new Image()
+    idleImage.src = idleAsset
+    const runImage = new Image()
+    runImage.src = runAsset
 
     // sprite animation
     this.frameX = 0
-    this.frameY = 1
     this.maxFrame = 8
     this.animationFps = 20
     this.animationTimer = 0
     this.animationInterval = 1000 / this.animationFps
-    this.idleFrames = 10
-    this.runFrames = 8
+    this.idle = {
+      image: idleImage,
+      frames: 11,
+    }
+    this.run = {
+      image: runImage,
+      frames: 8,
+    }
+    this.image = this.idle.image
 
     // flip sprite direction
     this.flip = false
@@ -60,11 +69,11 @@ export default class Player {
 
     // play run or idle animation
     if (this.speedX !== 0) {
-      this.frameY = 1
-      this.maxFrame = this.runFrames
+      this.maxFrame = this.run.frames
+      this.image = this.run.image
     } else {
-      this.frameY = 0
-      this.maxFrame = this.idleFrames
+      this.maxFrame = this.idle.frames
+      this.image = this.idle.image
     }
 
     this.y += this.speedY
@@ -118,10 +127,12 @@ export default class Player {
       context.scale(-1, 1)
     }
 
+    // s = source, d = destination
+    // image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight
     context.drawImage(
       this.image,
       this.frameX * this.width,
-      this.frameY * this.height - 14,
+      1 * this.height - 14,
       this.width,
       this.height,
       this.flip ? this.x * -1 - this.width : this.x,
