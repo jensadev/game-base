@@ -1,4 +1,6 @@
-För att möjligöra kollision mellan objekt i spelet så behöver vi redigera Game klassen.
+# Kollisioner
+
+För att möjligöra kollision mellan objekt i spelet så behöver vi redigera Game klassen. Vi väljer att lägga till en metod som heter `checkCollision` som tar två objekt som argument och returnerar `true` om de kolliderar och `false` om de inte gör det.
 
 Vi behöver iterera över spelets objekt och kolla om de kolliderar med varandra. Om de kolliderar så utför vi något, det kan vara att ta bort fienden eller sätta game over.
 
@@ -31,27 +33,39 @@ De enskilda villkoren kontrollerar om:
 
 Om alla dessa villkor är sanna samtidigt, innebär det att objekten överlappar varandra på något sätt, och funktionen returnerar `true`. Annars, om något av villkoren inte är sant, kommer den att returnera `false`, vilket betyder att objekten inte kolliderar.
 
+Om det är förvirrande kan du skriva om koden som följer:
+```javascript
+let leftOfObject = object1.x < object2.x + object2.width
+let rightOfObject = object1.x + object1.width > object2.x
+let aboveObject = object1.y < object2.y + object2.height
+let belowObject = object1.height + object1.y > object2.y
+```
+
+och sedan skriva om retursatsen som följer:
+```javascript
+return leftOfObject && rightOfObject && aboveObject && belowObject
+```
+
+Om något av uttrycken är sanna, kommer retursatsen att returnera `true`, annars kommer den att returnera `false`. Om det är sant så kolliderar objekten.
+
 ### Använd checkCollision
 
 Uppdatera koden i spelets update metod där vi itererar över spelets fiender. I denna loop kan vi dels kontrollera om fienden krockar med spelaren, men också iterera över spelarens projektiler för att se om vi träffar fienden.
 
-```javascript
-update (deltaTime) {
-  ...
-  this.enemies.forEach((enemy) => {
-    enemy.update(deltaTime)
-    if (this.checkCollision(this.player, enemy)) {
-      enemy.markedForDeletion = true
-    }
-    this.player.projectiles.forEach((projectile) => {
-      if (this.checkCollision(projectile, enemy)) {
-        enemy.markedForDeletion = true
-        projectile.markedForDeletion = true
-      }
-    })
-  })
-  ...
-}
+Redigera `Game.js` och uppdatera koden i `update` metoden så att den innehåller följande:
+```diff
++  this.enemies.forEach((enemy) => {
++    enemy.update(deltaTime)
++    if (this.checkCollision(this.player, enemy)) {
++      enemy.markedForDeletion = true
++    }
++   this.player.projectiles.forEach((projectile) => {
++      if (this.checkCollision(projectile, enemy)) {
++        enemy.markedForDeletion = true
++        projectile.markedForDeletion = true
++      }
++    })
++  })
 ```
 
 - `this.enemies.forEach((enemy) => { ... })`: Här används en forEach-loop för att iterera över varje fiende i listan `enemies` i spelet.
