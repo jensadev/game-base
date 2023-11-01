@@ -1,3 +1,5 @@
+# Setup
+
 Projektet är skapat med vite.
 
 ```bash
@@ -13,6 +15,30 @@ Koden i `setup.js` ska du på det stora hela inte ändra på. Det som du kan jus
 
 ## Förklaring setup.js
 
+```javascript
+import Game from './Game'
+
+export function setup(canvas) {
+  const ctx = canvas.getContext('2d')
+  canvas.width = 854
+  canvas.height = 480
+
+  const game = new Game(canvas.width, canvas.height)
+  let lastTime = 0
+
+  const animate = (timeStamp) => {
+    const deltaTime = timeStamp - lastTime
+    lastTime = timeStamp
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    game.update(deltaTime)
+    game.draw(ctx)
+    requestAnimationFrame(animate)
+  }
+
+  animate(0)
+}
+```
+
 ### Importera Game från './Game'
 
 ```javascript
@@ -24,7 +50,7 @@ I koden importerar vi en modul eller ett objekt som heter "Game" från en annan 
 ### Definiera funktionen `setup(canvas)`
 
 ```javascript
-export function setup(canvas) {
+export function setup(canvas) {}
 ```
 
 Detta är en export av en funktion som heter `setup`, och den tar en parameter `canvas`. Funktionen används för att sätta upp och konfigurera spelet på en HTML Canvas-element som skickas som argument.
@@ -65,7 +91,7 @@ Den här variabeln används senare för att räkna ut tidsdifferensen mellan bil
 ### Definiera spelets animationsfunktion (`animate`) som används för att uppdatera och rita spelet
 
 ```javascript
-const animate = (timeStamp) => {
+const animate = (timeStamp) => {}
 ```
 
 Här definieras en funktion som tar en tidsstämpel (`timeStamp`) som argument. Denna funktion kommer att köras som en del av en animationsloop. Denna funktion tar emot en tidsstämpel (timeStamp) som används för att reglera tidsbaserade händelser i spelet.
@@ -103,5 +129,11 @@ requestAnimationFrame(animate)
 ```
 
 Den här raden anropar funktionen `animate` igen med `requestAnimationFrame`, vilket skapar en loop där `animate`-funktionen kör igen och igen för att uppdatera och rita spelet.
+
+### Starta animationsloopen
+
+```javascript
+animate(0)
+```
 
 Sammanfattningsvis sätter den här koden upp en enkel spelapplikation som använder en HTML Canvas för att rita och uppdatera spelet. Den använder en animationsloop för att reglera uppdateringshastigheten och hantera spelets logik med hjälp av ett `Game`-objekt.
