@@ -1,4 +1,11 @@
 Projektet är skapat med vite.
+
+```bash
+npm create vite@latest
+cd <project-name>
+npm install
+npm run dev
+```
 Spelet är uppdelat i ett flertal klasser/moduler för att hålla koden ren och lättläslig.
 
 Spelmotorn startas från `index.html` -> `main.js` som i sin tur kallar på funktionen `setup()` för att starta spelet.
