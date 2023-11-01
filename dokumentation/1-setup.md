@@ -1,3 +1,5 @@
+# Setup
+
 Projektet är skapat med vite.
 
 ```bash

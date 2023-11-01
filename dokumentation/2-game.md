@@ -1,3 +1,5 @@
+# Game
+
 Spelets logik utgår från klassen Game.
 
 ```javascript
