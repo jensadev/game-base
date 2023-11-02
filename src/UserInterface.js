@@ -13,17 +13,6 @@ export default class UserInterface {
     context.shadowOffsetY = 2
     context.shadowColor = 'black'
 
-    context.textAlign = 'left'
-    context.font = `${this.fontSize}px ${this.fontFamily}`
-    context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 10, 70)
-    context.textAlign = 'center'
-    context.fillText(`Lives: ${this.game.player.lives}`, this.game.width / 2, 70)
-    if (this.game.player.ammo == 0){
-      context.fillStyle = '#FF0000'
-      context.font = '100px Arial'
-    }
-    context.fillText(`Ammo: ${this.game.player.ammo}`,this.game.width / 2, 130)
-    context.fillStyle = this.color
     if (this.game.gameOver) {
       context.textAlign = 'center'
       context.font = `150px ${this.fontFamily}`
@@ -32,6 +21,21 @@ export default class UserInterface {
         this.game.width / 2,
         this.game.height / 2
       )
+      context.font = `60px ${this.fontFamily}`
+      context.fillText('Press \'r\' to try again', this.game.width/2, this.game.height/2+95)
+      context.fillText(`Score: ${Math.floor(this.game.gameTime * 0.001)}`, this.game.width/2, this.game.height/2-150)
+    } else {
+      context.textAlign = 'left'
+      context.font = `${this.fontSize}px ${this.fontFamily}`
+      context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 10, 70)
+      context.textAlign = 'center'
+      context.fillText(`Lives: ${this.game.player.lives}`, this.game.width / 2, 70)
+      if (this.game.player.ammo == 0){
+        context.fillStyle = '#FF0000'
+        context.font = '100px Arial'
+      }
+      context.fillText(`Ammo: ${this.game.player.ammo}`,this.game.width / 2, 130)
+      context.fillStyle = this.color
     }
 
     // debug

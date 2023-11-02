@@ -10,7 +10,7 @@ export default class Pumpkin extends Enemy {
     this.sprite.src = Sprite
     this.x = x
     this.y = y
-    this.lives = 1 + Math.floor(Math.pow(game.gameTime/15000, 3)) + this.game.explode
+    this.lives = 20 + Math.floor(Math.pow(game.gameTime/10000, 2)) + this.game.explode
     this.speed = Math.floor(7-this.lives) + this.game.explode*4
     if (this.speed < 2){
       this.speed = 2

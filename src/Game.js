@@ -15,6 +15,7 @@ export default class Game {
     this.ui = new UserInterface(this)
     this.keys = []
     this.gameOver = false
+    this.gameBegin = true
     this.gravity = 1
     this.debug = false
     this.gameTime = 0
@@ -26,13 +27,14 @@ export default class Game {
     this.explode = 0
 
     this.pickups = []
-    this.pickupTimer = 0
-    this.pickupInterval = 5000
 
     this.player = new Player(this)
   }
 
   update(deltaTime) {
+    if (this.gameBegin){
+      this.resetGame()
+    }
     if (this.enemies.length > 29){
       this.player.lives -= 1
       this.explode += 5
@@ -40,6 +42,10 @@ export default class Game {
     }
     if (!this.gameOver) {
       this.gameTime += deltaTime
+    } else {
+      this.enemies = []
+      this.enemyInterval = Infinity
+
     }
     // Create enemies
     if (this.enemyTimer > this.enemyInterval) {
@@ -128,6 +134,21 @@ export default class Game {
     this.x = Math.random() * (this.width - 0) + 0
     this.y = Math.random() * (this.height - 0) + 0
     this.pickups.push(new pickup(this, x, y))
+  }
+
+  resetGame() {
+    this.enemyInterval = 1000
+    this.player.lives = 10
+    this.player.ammo = 20
+    this.player.shots = 1
+    this.player.damage = 1
+    this.player.x = this.width / 2 - this.player.width / 2
+    this.player.y = this.height / 2 - this.player.height / 2
+    this.gameTime = 0
+    this.gameOver = false
+    this.gameBegin = false
+    this.enemies = []
+    this.player.projectiles = []
   }
 
   draw(context) {
