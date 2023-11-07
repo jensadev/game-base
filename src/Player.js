@@ -32,7 +32,7 @@ export default class Player {
 
     // sprite animation
     this.frameX = 0
-    this.maxFrame = 8
+    this.maxFrame = 0
     this.animationFps = 20
     this.animationTimer = 0
     this.animationInterval = 1000 / this.animationFps
