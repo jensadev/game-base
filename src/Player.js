@@ -1,8 +1,4 @@
 import Projectile from './Projectile.js'
-// import spriteImage from './assets/sprites/Idle Run (78x58).png'
-import idleAsset from './assets/sprites/Idle (78x58).png'
-import runAsset from './assets/sprites/Run (78x58).png'
-import attackAsset from './assets/sprites/Attack (78x58).png'
 
 export default class Player {
   constructor(game) {
@@ -22,30 +18,23 @@ export default class Player {
     this.jumpSpeed = 14
     this.grounded = false
 
-    // adding sprite image
-    const idleImage = new Image()
-    idleImage.src = idleAsset
-    const runImage = new Image()
-    runImage.src = runAsset
-    const attackImage = new Image()
-    attackImage.src = attackAsset
-
     // sprite animation
     this.frameX = 0
     this.maxFrame = 0
     this.animationFps = 20
     this.animationTimer = 0
     this.animationInterval = 1000 / this.animationFps
+    console.log(this.game.loader)
     this.idle = {
-      image: idleImage,
+      image: this.game.loader.images.playerIdle,
       frames: 11,
     }
     this.run = {
-      image: runImage,
+      image: this.game.loader.images.playerRun,
       frames: 8,
     }
     this.attack = {
-      image: attackImage,
+      image: this.game.loader.images.playerAttack,
       frames: 3,
     }
     this.image = this.idle.image
@@ -77,7 +66,6 @@ export default class Player {
       this.speedY += this.game.gravity
     }
 
-    console.log(this.shooting)
     // play run or idle animation
     if (this.shooting) {
       this.maxFrame = this.attack.frames
@@ -163,7 +151,6 @@ export default class Player {
 
   shoot() {
     this.shooting = true
-    console.log('shoot ', this.shooting)
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )

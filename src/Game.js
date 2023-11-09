@@ -4,9 +4,10 @@ import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Platform from './Platform.js'
 export default class Game {
-  constructor(width, height) {
+  constructor(width, height, loader) {
     this.width = width
     this.height = height
+    this.loader = loader
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
     this.keys = []
