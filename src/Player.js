@@ -1,8 +1,8 @@
 import Projectile from './Projectile.js'
 // import spriteImage from './assets/sprites/Idle Run (78x58).png'
-import idleAsset from './assets/sprites/Idle (78x58).png'
-import runAsset from './assets/sprites/Run (78x58).png'
-import attackAsset from './assets/sprites/Attack (78x58).png'
+import idleAsset from './assets/sprites/king/Idle (78x58).png'
+import runAsset from './assets/sprites/king/Run (78x58).png'
+import attackAsset from './assets/sprites/king/Attack (78x58).png'
 
 export default class Player {
   constructor(game) {
@@ -55,6 +55,8 @@ export default class Player {
 
     // shooting
     this.shooting = false
+    this.shootTimer = 0
+    this.shootInterval = 300
   }
 
   update(deltaTime) {
@@ -77,7 +79,7 @@ export default class Player {
       this.speedY += this.game.gravity
     }
 
-    console.log(this.shooting)
+    this.shootTimer += deltaTime
     // play run or idle animation
     if (this.shooting) {
       this.maxFrame = this.attack.frames
@@ -157,15 +159,21 @@ export default class Player {
       this.width,
       this.height
     )
-
-    context.restore()
+    if (this.flip) {
+      context.restore()
+    }
   }
 
   shoot() {
     this.shooting = true
-    console.log('shoot ', this.shooting)
-    this.projectiles.push(
-      new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
-    )
+    if (this.shootTimer > this.shootInterval) {
+      const offset = 10
+      const x =
+        this.direction === 1 ? this.x + this.width + offset : this.x - offset
+      this.projectiles.push(
+        new Projectile(this.game, x, this.y + this.height / 2, this.direction)
+      )
+      this.shootTimer = 0
+    }
   }
 }

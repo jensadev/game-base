@@ -1,12 +1,13 @@
-import attackAsset from './assets/sprites/Attack (78x58).png'
+import attackAsset from './assets/sprites/king/Attack (78x58).png'
 
 export default class Projectile {
-  constructor(game, x, y) {
+  constructor(game, x, y, direction) {
     this.game = game
     this.width = 4
     this.height = 4
     this.x = x
     this.y = y
+    this.direction = direction
 
     this.speed = 5
     this.damage = 1
@@ -19,8 +20,10 @@ export default class Projectile {
   }
 
   update() {
-    this.x += this.speed
-    if (this.x > this.game.width) {
+    this.x += this.speed * this.direction
+    if (this.x > this.game.width + this.game.camera.x) {
+      this.markedForDeletion = true
+    } else if (this.x < this.game.camera.x) {
       this.markedForDeletion = true
     }
   }
@@ -30,5 +33,8 @@ export default class Projectile {
     // context.fillRect(this.x, this.y, this.width, this.height)
     // image, sx, sy, sw, sh, dx, dy, dw, dh
     context.drawImage(this.image, 120, 0, 32, 58, this.x, this.y, 32, 38)
+    if (this.game.debug) {
+      context.strokeRect(this.x, this.y, this.width, this.height)
+    }
   }
 }

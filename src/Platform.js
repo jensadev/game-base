@@ -1,17 +1,26 @@
 export default class Platform {
-  constructor(game, x, y, width, height) {
+  constructor(game, x, y, width, height, imageUrl) {
     this.game = game
     this.width = width
     this.height = height
     this.x = x
     this.y = y
+    if (imageUrl) {
+      const image = new Image()
+      image.src = imageUrl
+      this.image = image
+    }
   }
 
   update() {}
 
   draw(context) {
-    context.fillStyle = '#795548'
-    context.fillRect(this.x, this.y, this.width, this.height)
+    if (this.image) {
+      context.drawImage(this.image, this.x, this.y, this.width, this.height)
+    } else {
+      context.fillStyle = '#795548'
+      context.fillRect(this.x, this.y, this.width, this.height)
+    }
 
     if (this.game.debug) {
       context.fillStyle = 'black'
