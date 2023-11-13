@@ -30,7 +30,9 @@ export default class Loader {
 
   loadSound(sound) {
     const audio = new Audio(sound.src)
+
     audio.oncanplaythrough = () => {
+      console.log('loaded')
       this.sounds[sound.name] = audio
       this.loaded++
     }
@@ -70,6 +72,10 @@ export default class Loader {
 
   getSounds() {
     return this.sounds
+  }
+
+  getSound(name) {
+    return this.sounds[name]
   }
 
   getJSON() {

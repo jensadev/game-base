@@ -3,6 +3,7 @@ import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Platform from './Platform.js'
+import Sound from './Sound.js'
 export default class Game {
   constructor(width, height, loader) {
     this.width = width
@@ -29,9 +30,16 @@ export default class Game {
       new Platform(this, this.width - 200, 280, 200, 20),
       new Platform(this, 200, 200, 300, 20),
     ]
+
+    this.pause = false
+
+    // this.sound = new Sound(this)
+    // this.sound.playMusic()
   }
 
   update(deltaTime) {
+    console.log(this.pause)
+    if (this.pause) return
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }

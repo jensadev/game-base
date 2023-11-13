@@ -17,8 +17,16 @@ export default class InputHandler {
         this.game.player.shoot()
       }
 
+      if (event.key === 'p') {
+        console.log('pause')
+        this.game.pause = !this.game.pause
+      }
+
       if (event.key === 'd') {
         this.game.debug = !this.game.debug
+      }
+      if (event.key === 's') {
+        this.game.loader.sounds['music'].play()
       }
     })
     window.addEventListener('keyup', (event) => {

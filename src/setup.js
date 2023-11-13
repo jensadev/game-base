@@ -14,7 +14,7 @@ export function setup(canvas) {
     { name: 'playerAttack', src: './assets/sprites/Attack (78x58).png' },
   ])
 
-  loader.loadSounds([])
+  loader.loadSounds([{ name: 'music', src: './assets/sounds/Pixel 5.mp3' }])
 
   loader.loadJSON([])
 
@@ -38,6 +38,9 @@ export function setup(canvas) {
 
   loader.onReady(() => {
     console.log('ready')
+    // loader.sounds['music'].loop = true
+    // loader.sounds['music'].play()
+    console.log(loader.sounds['music'])
     run()
   })
 }
