@@ -9,22 +9,23 @@ export default class Paddle extends Player {
     this.y = this.game.height / 2 - this.height / 2
     this.color = color
     this.player = player
+    this.maxSpeed = 6
   }
 
   update(deltaTime) {
-    if (this.game.keys.includes('ArrowUp') && this.player === 1) {
+    if (this.game.keys.includes('ArrowUp') && this.player === 2) {
       this.speedY = -this.maxSpeed
-    } else if (this.game.keys.includes('ArrowDown') && this.player === 1) {
+    } else if (this.game.keys.includes('ArrowDown') && this.player === 2) {
       this.speedY = this.maxSpeed
-    } else if (this.player === 1) {
+    } else if (this.player === 2) {
       this.speedY = 0
     }
 
-    if (this.game.keys.includes('w') && this.player === 2) {
+    if (this.game.keys.includes('w') && this.player === 1) {
       this.speedY = -this.maxSpeed
-    } else if (this.game.keys.includes('s') && this.player === 2) {
+    } else if (this.game.keys.includes('s') && this.player === 1) {
       this.speedY = this.maxSpeed
-    } else if (this.player === 2) {
+    } else if (this.player === 1) {
       this.speedY = 0
     }
 

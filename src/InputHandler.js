@@ -15,6 +15,9 @@ export default class InputHandler {
       if (event.key === 'd') {
         this.game.debug = !this.game.debug
       }
+      if (event.key === 'p') {
+        this.game.pause = !this.game.pause
+      }
     })
     window.addEventListener('keyup', (event) => {
       if (this.game.keys.indexOf(event.key) > -1) {
