@@ -22,6 +22,8 @@ export default class Player {
     this.jumpSpeed = 14
     this.grounded = false
 
+    this.direction = 1
+
     // adding sprite image
     const idleImage = new Image()
     idleImage.src = idleAsset
@@ -61,8 +63,10 @@ export default class Player {
 
   update(deltaTime) {
     if (this.game.keys.includes('ArrowLeft')) {
+      this.direction = -1
       this.speedX = -this.maxSpeed
     } else if (this.game.keys.includes('ArrowRight')) {
+      this.direction = 1
       this.speedX = this.maxSpeed
     } else {
       this.speedX = 0

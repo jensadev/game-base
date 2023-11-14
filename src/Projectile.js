@@ -20,6 +20,7 @@ export default class Projectile {
   }
 
   update() {
+    console.log(this.direction, this.x, this.y)
     this.x += this.speed * this.direction
     if (this.x > this.game.width + this.game.camera.x) {
       this.markedForDeletion = true
