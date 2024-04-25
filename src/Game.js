@@ -2,12 +2,15 @@ import Slime from './Slime.js'
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
+import Hiscore from './Hiscore.js'
 export default class Game {
-  constructor(width, height) {
-    this.width = width
-    this.height = height
+  constructor(canvasElement, hiscoreElement) {
+    this.width = canvasElement.width
+    this.height = canvasElement.height
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
+    this.hiscore = new Hiscore(this, hiscoreElement)
+    this.hiscore.draw()
     this.keys = []
     this.gameOver = false
     this.gravity = 1
@@ -19,12 +22,16 @@ export default class Game {
     this.enemyInterval = 1000
 
     this.player = new Player(this)
+    this.score = 0
   }
 
   update(deltaTime) {
     if (!this.gameOver) {
       this.gameTime += deltaTime
+    } else {
+      return
     }
+
     this.player.update(deltaTime)
 
     if (this.enemyTimer > this.enemyInterval && !this.gameOver) {
@@ -38,15 +45,23 @@ export default class Game {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
+        this.player.health -= 10
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
           enemy.markedForDeletion = true
           projectile.markedForDeletion = true
+          this.score += enemy.score
         }
       })
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+
+    if (this.player.health <= 0) {
+      this.hiscore.setScore(this.score)
+      this.hiscore.draw()
+      this.gameOver = true
+    }
   }
 
   draw(context) {

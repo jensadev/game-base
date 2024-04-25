@@ -18,8 +18,10 @@ export default class UserInterface {
     context.fillText(
       `Time: ${(this.game.gameTime * 0.001).toFixed(1)}`,
       20,
-      100
+      30
     )
+    context.fillText(`Score: ${this.game.score}`, 20, 60)
+    context.fillText(`Health: ${this.game.player.health}`, 20, 90)
 
     if (this.game.gameOver) {
       context.textAlign = 'center'

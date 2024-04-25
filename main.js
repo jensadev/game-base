@@ -4,6 +4,7 @@ import { setup } from './src/setup.js'
 
 document.querySelector('#app').innerHTML = `
   <canvas id="canvas1"></canvas>
+  <ul id="hiscore"></ul>
 `
 
-setup(document.querySelector('#canvas1'))
+setup(document.querySelector('#canvas1'), document.querySelector('#hiscore'))
