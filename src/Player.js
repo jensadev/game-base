@@ -26,7 +26,7 @@ export default class Player {
     if (this.grounded) {
       this.speedY = 0
     } else {
-      this.speedY += this.game.gravity
+      // this.speedY += this.game.gravity
     }
 
     if (this.game.keys.includes('ArrowLeft')) {
